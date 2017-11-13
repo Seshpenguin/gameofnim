@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * * *6344552546424nn
+ * * *
  * This program implements the Game of Nim, a game that involves 2 players taking turns taking 1-3 rocks from a pile. The player to take the last rock looses.
  * There are 3 modes in the program: Player v. Easy A.I, Player v. Hard A.I, and Player v. Player.
  * 
