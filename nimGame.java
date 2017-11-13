@@ -1,7 +1,8 @@
 /*
  * nimGame.java
  * Seshan, Randy, Rain, Joshua
- * 11/2/2017
+ * Began: ~ 11/2/2017
+ * Finished 11/13/2017
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,7 +18,8 @@
  * 
  * * *
  * This program implements the Game of Nim, a game that involves 2 players taking turns taking 1-3 rocks from a pile. The player to take the last rock looses.
- * There are 3 modes in the program: Player v. Easy A.I, Player v. Hard A.I, and Player v. Player.
+ * There are 3 modes in the program: Player v. Easy A.I, Player v. Hard A.I, and Player v. Player. There is also a small tutorial included. At the end, all the
+ * games played are printed along with credits.
  * 
  */
 import java.util.Scanner;
@@ -283,11 +285,11 @@ class nimGame {
     // game has ended!
     for(int i = 0; i < 50; i++){System.out.print("\n");}
     System.out.println("----------------------------------------------------");
-    System.out.println("Thank you for playing the Game of Nim! Here are the games played:");
+    System.out.println("Thank you for playing the Game of Nim! Here were the games played:");
     //print the items in the arraylist
     //LOOK AT HOW NICE ARRAYLISTS ARE!!!
     for (String element : players) {
-      System.out.println("** " + element + "\n");
+      System.out.println("** " + element + " **\n");
     }
     System.out.println("\nGame of Nim - ICS3U Edition was brought to you by:");
     System.out.println("* Seshan Ravikumar (Creator of Bugs)");
@@ -295,6 +297,7 @@ class nimGame {
     System.out.println("* Randy Tang (Some Swordsman)");
     System.out.println("* Rain Wei (Emoji Master)");
     System.out.println("----------------------------------------------------");
+    System.out.println("Have a great day!");
     
   }
   
