@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * * *
+ * * *6344552546424nn
  * This program implements the Game of Nim, a game that involves 2 players taking turns taking 1-3 rocks from a pile. The player to take the last rock looses.
  * There are 3 modes in the program: Player v. Easy A.I, Player v. Hard A.I, and Player v. Player.
  * 
@@ -31,6 +31,7 @@ class nimGame {
   static Random rand = new Random();
   
   //declare global variables
+  // my rational for global variables is that since this program is 1 file, and fairly simple, global variables just make things eaiser becuase of the methods.
   static String p1Name = "", p2Name = "";
   static int modeSelect = 0; //0 is AI, 1 is Player.
   static int numStones = 0;
@@ -62,25 +63,29 @@ class nimGame {
           //player picked AI Game
           System.out.println("----------------------------------------------------");
           System.out.println("What is your name? ");
-          scan.nextLine(); //beep boop bug
           p1Name = scan.nextLine();
           
           // game loop (Player v. AI)
           System.out.println ("There are now " + numStones + " stones in the pile.");
           while(true){
-            while (numStones > 0) // loop that repeats player and computer’s turn
+            while (numStones > 0) // loop that repeats player and computers turn
             {
               int numStonesTaken = 0;
               
               System.out.println(p1Name + ", how many stones do you take from the pile (1-3): ");
               
               while(true){
-                numStonesTaken = scan.nextInt();
+                numStonesTaken = nextIntSafe();
                 if(numStonesTaken > 0 && numStonesTaken < 4){ // 1-3
-                  break;
+                  if(numStonesTaken > numStones){
+                    System.out.println("There are not that many stones in the pile! Pick Again:");
+                  }else{
+                    break;
+                  }
                 }else{
                   System.out.println("That is not a valid choice! (Pick a number 1, 2 or 3): ");
                 }
+                
               }
               if(numStones - numStonesTaken <= 0){
                 System.out.println("Oh no! " + p1Name + ", you lose the game of Nim! Congrats " + p2Name + " on winning!");
@@ -94,7 +99,7 @@ class nimGame {
               for(int i = 0; i < 50; i++){System.out.print("\n");}
               System.out.println("----------------------------------------------------");
               
-              if (numStones == 4) // If statements that help the computer from making mistakes that’ll cost it the game
+              if (numStones == 4) // If statements that help the computer from making mistakes that will cost it the game
               {
                 System.out.println ("There are 4 stones. The computer takes 3 stones.");
                 numStones = numStones - 3;
@@ -138,17 +143,21 @@ class nimGame {
           //player picked AI Game
           System.out.println("----------------------------------------------------");
           System.out.println("What is your name? ");
-          scan.nextLine(); //beep boop bug
           p1Name = scan.nextLine();
           
+          System.out.println ("There are " + numStones + " stones in the pile.");
           while(true){
             int numStonesTaken = 0;
             System.out.println(p1Name + ", how many stones do you take from the pile (1-3): ");
             
             while(true){
-              numStonesTaken = scan.nextInt();
+              numStonesTaken = nextIntSafe();
               if(numStonesTaken > 0 && numStonesTaken < 4){ // 1-3
-                break;
+                if(numStonesTaken > numStones){
+                  System.out.println("There are not that many stones in the pile! Pick Again:");
+                }else{
+                  break;
+                }
               }else{
                 System.out.println("That is not a valid choice! (Pick a number 1, 2 or 3): ");
               }
@@ -165,7 +174,16 @@ class nimGame {
             for(int i = 0; i < 50; i++){System.out.print("\n");}
             System.out.println("----------------------------------------------------");
             int aiRandChoice  = ThreadLocalRandom.current().nextInt(1, 4);
+            while(true){
+              if(aiRandChoice > numStones){ //this is kind of a bruteforce way to do it but whatever.
+                aiRandChoice  = ThreadLocalRandom.current().nextInt(1, 4);
+              }else{
+                break; 
+              }
+            }
+            
             System.out.println ("There are " + numStones + " stones. The computer takes " + aiRandChoice + " stones. ");
+            
             numStones= numStones- aiRandChoice;
             if(numStones <= 0){
               System.out.println("Oh no! " + p2Name + ", you lose the game of Nim! Congrats " + p1Name + " on winning!");
@@ -180,7 +198,6 @@ class nimGame {
         System.out.println("----------------------------------------------------");
         //player picked PvP Game.
         System.out.println("What is your name? ");
-        scan.nextLine(); //bug
         p1Name = scan.nextLine();
         
         System.out.println("What is Player 2's name? ");
@@ -200,9 +217,13 @@ class nimGame {
             System.out.println(p1Name + ", how many stones do you take from the pile (1-3): ");
             
             while(true){
-              numStonesTaken = scan.nextInt();
+              numStonesTaken = nextIntSafe();
               if(numStonesTaken > 0 && numStonesTaken < 4){ // 1-3
-                break;
+                if(numStonesTaken > numStones){
+                  System.out.println("There are not that many stones in the pile! Pick Again:");
+                }else{
+                  break;
+                }
               }else{
                 System.out.println("That is not a valid choice! (Pick a number 1, 2 or 3): ");
               }
@@ -218,9 +239,13 @@ class nimGame {
             System.out.println(p2Name + ", how many stones do you take from the pile (1-3): ");
             
             while(true){
-              numStonesTaken = scan.nextInt();
+              numStonesTaken = nextIntSafe();
               if(numStonesTaken > 0 && numStonesTaken < 4){ // 1-3
-                break;
+                if(numStonesTaken > numStones){
+                  System.out.println("There are not that many stones in the pile! Pick Again:");
+                }else{
+                  break;
+                }
               }else{
                 System.out.println("That is not a valid choice! (Pick a number 1, 2 or 3): ");
               }
@@ -245,7 +270,6 @@ class nimGame {
       
       System.out.println("*********************************************************************");
       System.out.println("Wow! That was an intense game. Do you want to play again? (y/N)");
-      scan.nextLine(); //yay for bugggsssss1
       String keepPlaying = scan.nextLine();
       if(keepPlaying.equals("y") || keepPlaying.equals("Y")){
         
@@ -283,16 +307,8 @@ class nimGame {
     System.out.println("| Do you want to play (0) or learn how to play Nim (1) |");
     System.out.println("--------------------------------------------------------");
     
-    String learnPlaySafe = scan.nextLine();
-    int learnPlay = 0;
-    try{
-      learnPlay = Integer.parseInt(learnPlaySafe);
-    }catch (NumberFormatException error){
-      System.out.println("Unexpected input. Continuing anyway (assuming 0)...");
-    }
-    
-    
-    //int learnPlay = scan.nextInt();
+    int learnPlay = nextIntSafe();
+    //int learnPlay = nextIntSafe();
     
     // if the player wants to learn how to play
     if(learnPlay == 1){
@@ -341,7 +357,7 @@ class nimGame {
       System.out.println("Invalid option!");
       System.out.println("| Do you want to play (0) or learn how to play Nim (1) |");
       while(true){
-        learnPlay = scan.nextInt();
+        learnPlay = nextIntSafe();
         System.out.println("| Do you want to play (0) or learn how to play Nim (1) |");
         if(learnPlay == 1){
           for(int i = 0; i < 50; i++){System.out.print("\n");}
@@ -374,7 +390,6 @@ class nimGame {
           System.out.println("----------------------------------------------------");
           
           System.out.println("And thats it! ;D");
-          scan.nextLine(); //bug fixx
           while(true){
             System.out.println("Ready to start playing? (y/n)");
             
@@ -409,7 +424,7 @@ class nimGame {
     // ask the user if they want PvAI or PvP
     System.out.println("Do you want to play against an A.I. (0) or another Player (1)?");
     while(true){
-      modeSelect = scan.nextInt();
+      modeSelect = nextIntSafe();
       if(modeSelect == 0 || modeSelect == 1){
         break;
       }else{
@@ -423,7 +438,7 @@ class nimGame {
     if(modeSelect == 0){
       System.out.println("Easy AI (0) or Hard AI (1)?");
       while(true){
-        aiSelect = scan.nextInt();
+        aiSelect = nextIntSafe();
         if(aiSelect == 0 || aiSelect == 1){
           break;
         }else{
@@ -439,5 +454,21 @@ class nimGame {
     //init the number of stones.
     numStones  = ThreadLocalRandom.current().nextInt(15, 30);
   }
+  
+  // This method is a drop in replacement for scan.nextInt(). It uses the nextLine to safely handle all input, and attempts to parse it
+  public static int nextIntSafe(){
+    int parsedInt = 0;
+    while(true){
+      String intString = scan.nextLine();
+      try{
+        parsedInt = Integer.parseInt(intString);
+        break;
+      }catch (NumberFormatException error){
+        System.out.println("That is not a valid integer. Try Again:");
+      }
+    }
+    return parsedInt;
+  }
+  
 }
 //done!
